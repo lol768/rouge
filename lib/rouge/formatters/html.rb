@@ -73,12 +73,25 @@ module Rouge
 
         # the "gl" class applies the style for Generic.Lineno
         yield '<td class="gutter gl" style="text-align: right">'
+        
         yield numbers
         yield '</td>'
 
         yield '<td class="code">'
         yield '<pre>'
-        yield formatted
+        
+        formatted_arr = formatted.split("\n")
+        ln = 1
+        lmax = formatted_arr.length
+        formatted_arr.each do |line|
+                if ln != lmax
+                        yield "<span class=\"line-" + ln.to_s + "\">" + line + "</span>\n"
+                else
+                        yield "<span class=\"line-" + ln.to_s + "\">" + line + "</span>"
+                end
+                ln = ln + 1
+        end
+        
         yield '</pre>'
         yield '</td>'
 
